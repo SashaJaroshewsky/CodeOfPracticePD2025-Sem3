@@ -8,16 +8,27 @@ namespace PZ2
 {
     internal class Reservation
     {
-        public Member Member;
-        public Book Book;
-        public DateTime ReservationDate;
-        //public DateTime DueDate;
+        public Member Member { get; private set; }
+        public Book Book { get; private set; }
+        public DateTime ReservationDate { get; private set; }
+        public DateTime DueDate { get; private set; }
 
-        public Reservation(Member member, Book book, DateTime reservationDate, DateTime dueDate)
+        private int reservationCounterDays = 14;
+        public Reservation(Member member, Book book)
         {
             Member = member;
             Book = book;
             ReservationDate = DateTime.Now;
+            DueDate = ReservationDate.AddDays(reservationCounterDays);
+        }
+
+        public Reservation(Member member, Book book, int days)
+        {
+            reservationCounterDays = days;
+            Member = member;
+            Book = book;
+            ReservationDate = DateTime.Now;
+            DueDate = ReservationDate.AddDays(reservationCounterDays);
         }
     }
 }
